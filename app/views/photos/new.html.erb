@@ -1,0 +1,13 @@
+<h1>写真投稿</h1>
+
+<%= form_with model: @photo, local: true do |f| %>
+  <div>
+    <%= f.file_field :image %>    
+  </div>
+  <div>
+    <%= f.text_area :caption %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
