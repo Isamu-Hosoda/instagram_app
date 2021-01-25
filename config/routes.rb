@@ -2,5 +2,7 @@ Rails.application.routes.draw do
   root "home#index"
   devise_for :users
   resources :photos
-  resources :users
+  resources :users do
+    resource :follow
+  end
 end
