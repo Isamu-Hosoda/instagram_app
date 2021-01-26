@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   resources :photos
   resources :users do
     resource :follow
+    resources :followings
+    resources :followers
   end
 end

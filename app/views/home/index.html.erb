@@ -13,3 +13,21 @@
     <%= link_to user.email, [user] %>
   </div>
 <% end %>
+
+<hr>
+
+<p>フォローしているユーザーの投稿</p>
+
+<% @feeds.each do |photo| %>
+  <div>
+    <div>
+      <%= link_to photo.user.email, [photo.user] %>
+    </div>
+    <div>
+      <%= photo.caption %>
+    </div>
+    <div>
+      <%= image_tag photo.image, :size => '300x300' %>
+    </div>
+  </div>
+<% end %>
