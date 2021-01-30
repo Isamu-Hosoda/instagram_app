@@ -27,7 +27,9 @@
       <%= photo.caption %>
     </div>
     <div>
-      <%= image_tag photo.image, :size => '300x300' %>
+      <%= link_to [photo] do%>
+        <%= image_tag photo.image, :size => '300x300' %>
+      <% end %>
     </div>
   </div>
 <% end %>

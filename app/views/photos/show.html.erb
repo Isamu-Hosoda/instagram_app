@@ -1,0 +1,41 @@
+<div>
+  <div>
+    <%= link_to @photo.user.email, [@photo.user] %>
+  </div>
+  <div>
+    <%= @photo.caption %>
+  </div>
+  <div>
+    <%= image_tag @photo.image, :size => '300x300' %>
+  </div>
+</div>
+
+<hr>
+<% if user_signed_in? %>
+  <%= form_with model: [@photo, @comment], local: true do |f| %>
+    <div>
+      <p>この投稿にコメントしましょう</p>
+      <%= f.text_field :body %>
+    </div>
+    <%= f.submit %>
+  <% end %>
+<% else %>
+  <p>ログインして、この投稿にコメントしましょう</p>
+  <%= link_to 'ログイン', new_user_session_path %>
+<% end %>
+<hr>
+
+<% @photo.comments.each do |comment| %>
+  <div>
+    <%= link_to comment.user.email, [comment.user] %>
+  </div>
+  <div>
+    <%= comment.body %>
+  </div>
+  <% if comment.user == current_user %>
+    <div>
+      <%= link_to 'コメント削除', [@photo, comment], method: :delete %>
+    </div>
+  <% end %>
+  <hr>
+<% end %>
