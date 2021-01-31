@@ -8,6 +8,16 @@
   <% end %>
 <% end %>
 
+<div>
+  <%= link_to 'フォロー', [@user, :followings] %>
+</div>
+<div>
+  <%= link_to 'フォロワー', [@user, :followers] %>
+</div>
+<div>
+  <%= link_to 'お気に入り', [@user, :favorites] %>
+</div>
+
 <% @user.photos.each do |photo| %>
   <div>
     <p><%= photo.caption %></p>

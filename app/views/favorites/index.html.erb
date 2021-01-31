@@ -1,0 +1,15 @@
+<% @photos.each do |photo| %>
+  <div>
+    <div>
+      <%= link_to photo.user.email, [photo.user] %>
+    </div>
+    <div>
+      <%= photo.caption %>
+    </div>
+    <div>
+      <%= link_to [photo] do%>
+        <%= image_tag photo.image, :size => '300x300' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

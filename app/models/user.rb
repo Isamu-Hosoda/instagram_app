@@ -18,5 +18,6 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :user
   
   has_many :comments
+  has_many :favorites
   has_many :photos
 end

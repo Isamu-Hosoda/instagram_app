@@ -10,8 +10,15 @@
   </div>
 </div>
 
-<hr>
+
 <% if user_signed_in? %>
+  <hr>
+  <% if current_user.favorites.exists?(photo_id: @photo.id) %>
+    <%= link_to 'お気に入り解除', [@photo, :favorite], method: :delete %>
+  <% else %>
+    <%= link_to 'お気に入り登録', [@photo, :favorite], method: :post %>
+  <% end %>
+
   <%= form_with model: [@photo, @comment], local: true do |f| %>
     <div>
       <p>この投稿にコメントしましょう</p>
@@ -19,11 +26,14 @@
     </div>
     <%= f.submit %>
   <% end %>
+  <hr>
 <% else %>
+  <hr>
   <p>ログインして、この投稿にコメントしましょう</p>
   <%= link_to 'ログイン', new_user_session_path %>
+  <hr>
 <% end %>
-<hr>
+
 
 <% @photo.comments.each do |comment| %>
   <div>
