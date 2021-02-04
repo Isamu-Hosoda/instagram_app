@@ -1,35 +1,33 @@
-<h1>home</h1>
-
-<div>
-  <%= link_to 'logout', destroy_user_session_path, method: :delete %>
+<div class="tabs">
+  <ul>
+    <li>
+      <%= link_to 'マイページ', [current_user] %>
+    </li>
+    <li>
+      <%= link_to '写真投稿', [:new, :photo] %>
+    </li>
+    <li>
+      <%= link_to 'logout', destroy_user_session_path, method: :delete %>
+    </li>
+  </ul>
 </div>
-
-<div>
-  <%= link_to '写真投稿', [:new, :photo] %>
-</div>
-
-<% User.all.each do |user| %>
-  <div>
-    <%= link_to user.email, [user] %>
-  </div>
-<% end %>
-
-<hr>
-
-<p>フォローしているユーザーの投稿</p>
 
 <% @feeds.each do |photo| %>
-  <div>
-    <div>
-      <%= link_to photo.user.email, [photo.user] %>
+  <div class="card mb-4">
+    <div class="card-content">  
+      <div>
+        <%= link_to photo.user.email, [photo.user] %>
+      </div>
+      <div>
+        <%= photo.caption %>
+      </div>
     </div>
-    <div>
-      <%= photo.caption %>
-    </div>
-    <div>
-      <%= link_to [photo] do%>
-        <%= image_tag photo.image, :size => '300x300' %>
-      <% end %>
+    <div class="card-image">
+      <div class="image">
+        <%= link_to [photo] do%>
+            <%= image_tag photo.image, :size => '300x300' %>
+          <% end %>
+      </div>
     </div>
   </div>
 <% end %>

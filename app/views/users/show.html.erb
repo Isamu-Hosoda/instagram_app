@@ -1,4 +1,4 @@
-<h3><%= @user.email %></h3>
+<h3 class="title"><%= @user.email %></h3>
 
 <% if user_signed_in? && current_user != @user %>
   <% if current_user.active_relationships.exists?(target_user_id: @user.id)%>
@@ -8,19 +8,33 @@
   <% end %>
 <% end %>
 
-<div>
-  <%= link_to 'フォロー', [@user, :followings] %>
-</div>
-<div>
-  <%= link_to 'フォロワー', [@user, :followers] %>
-</div>
-<div>
-  <%= link_to 'お気に入り', [@user, :favorites] %>
+<div class="tabs">
+  <ul>
+    <li>
+      <%= link_to 'フォロー', [@user, :followings] %>
+    </li>
+    <li>
+      <%= link_to 'フォロワー', [@user, :followers] %>
+    </li>
+    <li>
+      <%= link_to 'お気に入り', [@user, :favorites] %>
+    </li>
+  </ul>
 </div>
 
 <% @user.photos.each do |photo| %>
-  <div>
-    <p><%= photo.caption %></p>
-    <%= image_tag photo.image, :size => '300x300' %>
+  <div class="card mb-4">
+    <div class="card-content">  
+      <div>
+        <%= photo.caption %>
+      </div>
+    </div>
+    <div class="card-image">
+      <div class="image">
+        <%= link_to [photo] do%>
+            <%= image_tag photo.image, :size => '300x300' %>
+          <% end %>
+      </div>
+    </div>
   </div>
 <% end %>

@@ -1,13 +1,21 @@
-<h1>写真投稿</h1>
+<% if @photo.errors.any? %>
+  <% @photo.errors.full_messages.each do |message| %>
+    <div>
+      <p style="color:red">
+        写真を選択し直してください（
+        <%= message %>
+        ）
+      </p>
+    </div>
+  <% end %>
+<% end %>
 
 <%= form_with model: @photo, local: true do |f| %>
-  <div>
+  <div class="field">
     <%= f.file_field :image %>    
   </div>
-  <div>
-    <%= f.text_area :caption %>
+  <div class="field">
+    <%= f.text_area :caption, class: 'textarea' %>
   </div>
-  <div>
-    <%= f.submit %>
-  </div>
+  <%= f.submit class: 'button is-primary' %>
 <% end %>
