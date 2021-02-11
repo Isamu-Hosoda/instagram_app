@@ -8,6 +8,9 @@ class FavoritesController < ApplicationController
   def create
     current_user.favorites.create(photo_id: params[:photo_id])
     
+    photo = Photo.find(params[:photo_id])
+    photo.create_notification_favorite!(current_user)
+    
     redirect_to [:photo, { id: params[:photo_id] }]
   end
   

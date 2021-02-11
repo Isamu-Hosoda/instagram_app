@@ -6,7 +6,8 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     
     if @comment.save
-    redirect_to [@photo]
+      @photo.create_notification_comment!(current_user, @comment.id)
+      redirect_to [@photo]
     else
       render 'photos/show'
     end

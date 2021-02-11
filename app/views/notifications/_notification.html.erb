@@ -1,0 +1,27 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+
+<div>
+  <span>
+    <%= link_to visitor.email, user_path(visitor) %>
+
+    <%= 'さんが' %>
+    <%= link_to 'あなたの投稿', notification.photo %>
+    
+    <% case notification.action %>
+      <% when 'favorite' then %>
+        <%= 'をお気に入り登録しました' %>
+  
+      <% when 'comment' then %>
+        <%= 'にコメントしました' %>
+          <p>
+            <%= Photo.find_by(id: notification.comment_id) %>
+          </p>
+    <% end %>
+  </span>
+</div>
+
+<div small class="text-muted text-right">
+  <%= time_ago_in_words(notification.created_at).upcase %>前
+  <hr>
+</div>

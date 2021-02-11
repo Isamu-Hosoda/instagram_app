@@ -16,4 +16,6 @@ Rails.application.routes.draw do
     #お気に入り一覧を見るためのurl
     resources :favorites
   end
+  
+  resources :notifications, :only => :index
 end
