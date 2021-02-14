@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
+  #ユーザーネームは必須入力
+  validates :username, presence: true
+  validates :profile, length: { maximum: 200 }
+  
   # 経路1
   # uesr(user_id) → 中間テーブル → target_user(user_id)
   # 中間テーブル本体はforrow
@@ -19,7 +23,7 @@ class User < ApplicationRecord
   
   has_many :comments
   has_many :favorites
-  has_many :photos
+  has_many :photos, dependent: :destroy
   
   #自分からの通知
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy

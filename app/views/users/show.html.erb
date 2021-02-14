@@ -1,4 +1,6 @@
-<h3 class="title"><%= @user.email %></h3>
+<h3 class="title">
+  <%= @user.username %>
+</h3>
 
 <% if user_signed_in? && current_user != @user %>
   <% if current_user.active_relationships.exists?(target_user_id: @user.id)%>
@@ -7,6 +9,10 @@
     <%= link_to "フォローする", [@user, :follow], method: :post %>
   <% end %>
 <% end %>
+
+<hr>
+  <h3><%= @user.profile %></h3>
+<hr>
 
 <div class="tabs">
   <ul>
@@ -19,6 +25,11 @@
     <li>
       <%= link_to 'お気に入り', [@user, :favorites] %>
     </li>
+    <% if user_signed_in? && current_user == @user %>
+      <li>
+      <%= link_to 'プロフィール編集', edit_user_path(current_user) %>
+      </li>
+    <% end %>
   </ul>
 </div>
 
