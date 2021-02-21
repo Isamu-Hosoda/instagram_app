@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+  before_action :set_q, only: [:index, :search]
+  
+  def index
+    @users = User.all
+  end
+  
   def show
     @user = User.find(params[:id])
   end
@@ -24,8 +30,16 @@ class UsersController < ApplicationController
     redirect_to user_url
   end
   
+  def search
+    @results = @q.result
+  end
+  
   private
     def user_params
-      params.fetch(:user, {}).permit(:email, :name, :username, :gender, :phone, :profile)
+      params.fetch(:user, {}).permit(:email, :name, :username, :gender, :phone, :profile, :image)
+    end
+    
+    def set_q
+      @q = User.ransack(params[:q])
     end
 end

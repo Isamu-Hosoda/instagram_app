@@ -1,41 +1,86 @@
-<h1>プロフィール編集</h1>
+<h1>プロフィールを編集しましょう</h1>
 
 <% if user_signed_in? && current_user == @user %>
 
-  <%= link_to "delete", @user, method: :delete, data: { confirm: "アカウントを削除します。よろしいですか？" } %>
+  <div style="margin: 20px 350px;">
+  <%= link_to "パスワード変更", user_users_password_path, class: 'button is-primary'%>
+  </div>
+
+  <div style="margin: 20px 350px;">
+  <%= link_to "アカウント削除", @user, method: :delete,
+      data: { confirm: "アカウントを削除します。よろしいですか？" },
+      class: 'button is-primary' %>
+  </div>
 
   <%= form_with model: @user do |f| %>
     <div class="field">
+      <%= f.label :image %><br />
+      <%= f.file_field :image%>
+      <p class="help">
+        プロフィール画像を選択できます
+      </p>
+    </div>
+  
+    <div class="field">
       <%= f.label :email %><br />
-      <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.text_field :email, autofocus: true, autocomplete: "email", class: 'input' %>
+      <p class="help">
+        メールアドレスを入力してください。
+        （他のユーザーには公開されません）
+      </p>
     </div>
     
     <div class="field">
       <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: 'input' %>
+      <p class="help">
+        フルネームを入力してください。
+        （必須入力。他のユーザーには公開されません）
+      </p>
     </div>
   
     <div class="field">
       <%= f.label :username %><br />
-      <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+      <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'input' %>
+      <p class="help">
+        ニックネームを入力してください。（必須入力）
+      </p>
     </div>
     
     <div class="field">
       <%= f.label :gender %><br />
-      <%= f.select :gender, [["男性", "man"], ["女性", "woman"]], 
-      include_blank: "選択して下さい", autofocus: true %>
+      <div class='select'>
+        <select>
+          <option>man</option>
+          <option>woman</option>
+        </select>
+      </div>
+      <p class="help">
+        性別を選択できます。
+        （他のユーザーには公開されません）
+      </p>
     </div>
     
     <div class="field">
       <%= f.label :phone %><br />
-      <%= f.text_field :phone, autofocus: true, autocomplete: "phone" %>
+      <%= f.text_field :phone, autofocus: true, autocomplete: "phone", class: 'input' %>
+      <p class="help">
+        ハイフン（ー）抜きの電話番号を入力してください
+        （他のユーザーには公開されません）
+      </p>
     </div>
     
     <div class="field">
       <%= f.label :profile %><br />
-      <%= f.text_area :profile, size: "40x5", autofocus: true, autocomplete: "profile" %>
+      <%= f.text_area :profile, autofocus: true, autocomplete: "profile", class: 'textarea' %>
+      <p class="help">
+        自己紹介文を作成できます
+        （他のユーザーに配慮した内容を心掛けましょう）
+      </p>
     </div>
     
-    <div><%= f.submit "保存" %></div>
+    <div style="margin-top: 20px;">
+      <%= f.submit "保存", class: 'button is-primary'%>
+    </div>
   <% end %>
 <% end %>

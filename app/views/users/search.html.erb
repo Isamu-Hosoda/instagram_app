@@ -1,0 +1,12 @@
+<h1>検索結果</h1>
+<table>
+  <tbody>
+    <% @results.each do |user| %>
+      <tr>
+        <td><%= user.username %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Top', users_path %>

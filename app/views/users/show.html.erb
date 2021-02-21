@@ -1,7 +1,17 @@
-<h3 class="title">
-  <%= @user.username %>
-</h3>
+<!--プロフィール画像とユーザー名-->
+<div class="columns">
+  <div class="column is-3">
+    <% if @user.image.attached? %>
+      <%= image_tag @user.image%>
+    <% end %>
+  </div>
+  <div class="column title">
+    <%= @user.username %>
+  </div>
+</div>
 
+<!--他のユーザーにはフォローボタンを表示する-->
+<div>
 <% if user_signed_in? && current_user != @user %>
   <% if current_user.active_relationships.exists?(target_user_id: @user.id)%>
     <%= link_to "フォロー中", [@user, :follow], method: :delete %>
@@ -9,11 +19,25 @@
     <%= link_to "フォローする", [@user, :follow], method: :post %>
   <% end %>
 <% end %>
+</div>
 
-<hr>
+<!--フォロー数とフォロワー数を表示-->
+<div class="columns">
+  <div class="column is-one-fifth">
+    <%= @user.followings.count %>フォロー
+  </div>
+  <div class="column is-one-quarter">
+    <%= @user.followers.count %>フォロワー
+  </div>
+  <hr>
+</div>
+
+<!--ユーザーのプロフィールを表示-->
+<div style="margin-bottom: 100px;">
   <h3><%= @user.profile %></h3>
-<hr>
+</div>
 
+<!--ユーザー個別ページのメニュー-->
 <div class="tabs">
   <ul>
     <li>
@@ -33,10 +57,12 @@
   </ul>
 </div>
 
+<!--写真をユーザーページに並べて表示-->
 <div class="columns is-multiline">
   <% @user.photos.each do |photo| %>
     <div class="column is-one-third"> 
-      <div class="card mb-4">
+      <!--個々の画像-->
+      <div class="card">
         <div class="card-content">
           <div class="has-text-centered">
             <% if photo.caption.empty? %>
@@ -48,12 +74,58 @@
         </div>
         <div class="card-image">
           <div class="image is-square">
-            <%= link_to [photo] do%>
+            <a class="js-modal-open" data-target="modal<%= photo.id %>">
               <%= image_tag photo.image %>
-            <% end %>
+            </a>
           </div>
+        </div>
+      </div>
+      
+      <div id="modal<%= photo.id %>" class="modal js-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <div class="modal-card-title has-text-centered">
+                <% if photo.caption.empty? %>
+                  <p>[タイトルなし]</p>
+                <% else %>
+                  <%= photo.caption %>
+                <% end %>
+            </div>
+          </header>
+          <section class="modal-card-body">
+            <p class="image is-square">
+              <%= image_tag photo.image %>
+            </p>
+          </section>
+          <footer class="modal-card-foot">
+            <%= link_to "詳しく見る", [photo] %>
+          </footer>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+<!--個々の画像を押すと表示されるモーダル-->
+
+
+<!--写真をモーダルで表示する-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var modal = $("div.modal");
+    modal.hide();
+  
+    $(".js-modal-open").click(function() {
+      var target = $(this).data('target');
+      var modal = document.getElementById(target);
+      $(modal).fadeIn();
+      return false;
+    });
+    
+    $("div.modal-background").on("click", function() {
+      $('.js-modal').fadeOut();
+    })
+  });
+</script>
