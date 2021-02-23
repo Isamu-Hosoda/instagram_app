@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   end
   
   resources :notifications, :only => :index
+  resources :policy, :only => :index
 end

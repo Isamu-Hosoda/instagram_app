@@ -14,7 +14,7 @@ class PhotosController < ApplicationController
     @photo = current_user.photos.new(photo_params)
     
     if @photo.save
-      redirect_to [current_user]
+      redirect_to @photo
     else
       render :new
     end
