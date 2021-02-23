@@ -1,6 +1,11 @@
 class PhotosController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
   
+  def index
+    @q = Photo.ransack(params[:q])
+    @photos = @q.result(distinct: true)
+  end
+  
   def show
     @photo = Photo.find(params[:id])
     @comment = Comment.new

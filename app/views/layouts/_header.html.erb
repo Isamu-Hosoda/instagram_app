@@ -14,20 +14,13 @@
         <%= link_to '写真投稿', [:new, :photo] %>
       </div>
       <div class="navbar-item">
+        <%= link_to '写真検索', photos_path %>
+      </div>
+      <div class="navbar-item">
         <%= link_to 'お知らせ', notifications_path %>
       </div>
     </div>
     <div class="navbar-end">
-      <div class="navbar-item">
-          <div class="field has-addons">
-            <div class="control">
-                <input class="input" type="text" name="search" placeholder="キーワード検索">
-            </div>
-            <div class="control">
-                <a class="button is-info"><i class="fa fa-search"></i>検索</a>
-            </div>
-          </div>
-      </div>
       <div class="navbar-item" style="margin-right: 20px;">
         <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
       </div>

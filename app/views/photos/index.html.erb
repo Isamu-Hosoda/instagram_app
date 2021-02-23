@@ -1,0 +1,23 @@
+<div class="field">
+  <%= search_form_for @q do |f| %>
+    <div class="field has-addons">
+      <div class="control">
+        <%= f.search_field :caption_cont, class: "input", type: "text"%>
+      </div>
+      <div class="control">
+        <a><%= f.submit "検索", class: 'button is-info' %></a>
+      </div>
+    </div>
+  <% end %>
+</div>
+  検索結果：<%= @photos.count %>件<br>
+<hr>
+
+<% if @photos.any? %>
+  <% @photos.each do |result| %>
+    <%= link_to result.caption, photo_path(result.id) %>
+    <br>
+  <% end %>
+<% else %>
+  <h1>キーワードを含むユーザーを検索できませんでした</h1>
+<% end %>
