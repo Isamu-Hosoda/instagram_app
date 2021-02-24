@@ -1,6 +1,0 @@
-#User.create(name: '島田太郎', username: 'sima', email: 'shimada@example.com')
-#User.create(name: '森田太郎', username: 'mori', email: 'morida@example.com')
-#User.create(name: '本田太郎', username: 'BOOK', email: 'honnda@example.com')
-#User.create(name: '飯田太郎', username: 'IIDA', email: 'iida@example.com')
-#User.create(name: '石田太郎', username: 'いしだ', email: 'ishida@example.com')
-#User.create(name: '花田太郎', username: '花田', email: 'hanada@example.com')
