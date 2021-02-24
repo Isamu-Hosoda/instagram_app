@@ -1,0 +1,29 @@
+<% if user_signed_in? %>
+  <header class="navbar" style="background-color: #CCFFFF;">
+    <div class="navbar-brand">
+      <span class="navbar-item">
+        <%= link_to 'Instagram', [:root], class: 'navbar-item', 
+            :style => "font-family: cursive; font-size: 30px;" %>
+      </span>
+    </div>
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <%= link_to 'マイページ', [current_user] %>
+      </div>
+      <div class="navbar-item">
+        <%= link_to '写真投稿', [:new, :photo] %>
+      </div>
+      <div class="navbar-item">
+        <%= link_to '写真検索', photos_path %>
+      </div>
+      <div class="navbar-item">
+        <%= link_to 'お知らせ', notifications_path %>
+      </div>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item" style="margin-right: 20px;">
+        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+      </div>
+    </div>
+  </header>    
+<% end %>

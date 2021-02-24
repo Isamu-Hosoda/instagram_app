@@ -1,0 +1,81 @@
+<div class="card mb-4">
+  <div class="card-content">  
+    <div>
+      <%= link_to @photo.user.email, [@photo.user] %>
+    </div>
+    <div>
+      <%= @photo.caption %>
+    </div>
+    <div>
+      <% if user_signed_in? %>
+        <% if current_user.favorites.exists?(photo_id: @photo.id) %>
+          <%= link_to '登録解除', [@photo, :favorite], method: :delete %>
+        <% else %>
+          <%= link_to 'お気に入り登録', [@photo, :favorite], method: :post %>
+        <% end %>
+      <% end %>
+    </div>
+    <div>
+      <% if @photo.user == current_user %>
+        <%= link_to '削除', [@photo], method: :delete %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="card-image">
+    <div class="image is-square">
+      <%= link_to [@photo] do%>
+          <%= image_tag @photo.image %>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-content">
+    <% if user_signed_in? %>
+      <% if @comment.errors.any? %>
+        <% @comment.errors.full_messages.each do |message| %>
+          <div>
+            <p style="color:red">
+              入力し直してください（
+              <%= message %>
+              ）
+            </p>
+          </div>
+        <% end %>
+      <% end %>
+      
+      <%= form_with model: [@photo, @comment], local: true do |f| %>
+        <div class="field">
+          <p>この投稿にコメントしましょう</p>
+          <%= f.text_field :body, class: 'input' %>
+        </div>
+        <%= f.submit class: 'button is-primary' %>
+      <% end %>
+      <hr>
+    <% else %>
+      <hr>
+      <p>
+        <%= link_to 'ログイン', new_user_session_path %>
+        して、この投稿にコメントしましょう
+      </p>
+      <hr>
+    <% end %>
+    
+    <% @photo.comments.each do |comment| %>
+      <div>
+        <%= link_to comment.user.email, [comment.user] %>
+      </div>
+      <div class="box">
+        <%= comment.body %>
+      </div>
+      <% if comment.user == current_user %>
+        <div>
+          <%= link_to 'コメント削除', [@photo, comment], method: :delete %>
+        </div>
+      <% end %>
+      <hr>
+    <% end %>
+  </div>
+</div>

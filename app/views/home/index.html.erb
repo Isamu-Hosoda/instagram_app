@@ -1,0 +1,27 @@
+<div class="columns is-multiline">
+  <% @feeds.each do |photo| %>
+    <div class="column is-one-third"> 
+    <div class="card mb-4">
+      <div class="card-content">  
+        <div class="has-text-left">
+          <%= link_to photo.user.email, [photo.user] %>
+        </div>
+        <div class="has-text-centered">
+          <% if photo.caption.empty? %>
+            <p>[タイトルなし]</p>
+          <% else %>
+            <%= photo.caption %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-image">
+        <div class="image is-square">
+          <%= link_to [photo] do%>
+            <%= image_tag photo.image %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
